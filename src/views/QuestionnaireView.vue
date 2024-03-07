@@ -1,15 +1,15 @@
 <template>
     <div>
         <transition name="fade">
-            <Questionnaire v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread"/>
+            <Career v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread"/>
         </transition>
 
         <transition name="fade">
-            <QuestionnaireResult v-if="jounreyThread == 1" :modifyJourneyThread="modifyJourneyThread"/>
+            <Questionnaire v-if="jounreyThread == 1" :modifyJourneyThread="modifyJourneyThread"/>
         </transition>
 
         <transition name="fade">
-            <Career v-if="jounreyThread == 2" :modifyJourneyThread="modifyJourneyThread"/>
+            <QuestionnaireResult v-if="jounreyThread == 2" :modifyJourneyThread="modifyJourneyThread"/>
         </transition>
 
         <transition name="fade">

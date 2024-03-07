@@ -98,7 +98,7 @@ export default {
             this.onConfirm = false;
         },
         continueJourneyThread() {
-            this.modifyJourneyThread(2);
+            this.modifyJourneyThread(3);
         }
     },
 }

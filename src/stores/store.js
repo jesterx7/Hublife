@@ -6,12 +6,15 @@ export default createStore({
     mutations: {},
     actions: {
         prosesRequestQuestions(context, method, data) {
-            try {
-                const response = gateway.prosesRequestQuestions(data, method);
-                return response.data;
-            } catch (error) {
-                throw error;
-            }
+            return new Promise((resolve, reject) => {
+                gateway.prosesRequestQuestions(data, method)
+                    .then(res => {
+                        const data = res
+                        resolve(data)
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
         }
     }
 })
