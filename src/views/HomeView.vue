@@ -32,7 +32,7 @@ export default {
       <div>
         <h2 :class="'mb-4 text-4xl tracking-tight font-extrabold text-hublife-primary dark:text-white'">What is your
           best profile career?
-          like yours</h2>
+          like yours test</h2>
         <p class="text-gray-590 sm:text-xl mb-10">Discover your career path's perfect match – a seamless blend of your
           unique
           profile and deeply held values!</p>
