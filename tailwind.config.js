@@ -9,8 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "hublife-primary": "#010C4D",
-        "hublife-secondary": "#5870FC"
+        "hublife-primary": "#182447",
+        "hublife-secondary": "#F6B541"
       }
     },
   },

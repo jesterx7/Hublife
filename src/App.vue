@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="bg-hublife-primary flex flex-col min-h-screen">
     <Navbar/>
     <RouterView/>
   </div>

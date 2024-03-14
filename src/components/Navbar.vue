@@ -1,27 +1,30 @@
 <template>
-    <fwb-navbar>
+    <fwb-navbar class="bg-hublife-primary" solid>
         <template #logo>
-            <fwb-navbar-logo alt="Flowbite logo" image-url="src/assets/images/dummy-logo.png" link="#">
-                Hublife
+            <fwb-navbar-logo class="text-white" alt="Flowbite logo" image-url="src/assets/images/icon.png" link="#">
             </fwb-navbar-logo>
         </template>
         <template #default="{ isShowMenu }">
-            <fwb-navbar-collapse :is-show-menu="isShowMenu">
+            <fwb-navbar-collapse id="nvb-collapse" :is-show-menu="isShowMenu">
                 <router-link to="/">
-                    <fwb-navbar-link is-active link="#" @click="handleLinkClick('landing')">
-                        Home
+                    <fwb-navbar-link link="#" @click="handleLinkClick('#landing')">
+                        <div class="text-white">
+                            Home
+                        </div>
                     </fwb-navbar-link>
                 </router-link>
                 <router-link to="/">
-                    <fwb-navbar-link link="#" @click="handleLinkClick('bio')">
-                        Fill Forms
+                    <fwb-navbar-link link="#" @click="handleLinkClick('#form')">
+                        <div class="text-white">
+                            Forms
+                        </div>
                     </fwb-navbar-link>
                 </router-link>
             </fwb-navbar-collapse>
         </template>
     </fwb-navbar>
 </template>
-  
+
 <script setup>
 import {
     FwbButton,
@@ -33,6 +36,8 @@ import {
 </script>
 
 <script>
+import iconImg from "@/assets/images/icon.png"
+
 export default {
     methods: {
         scrollToSection(sectionId) {
@@ -45,12 +50,22 @@ export default {
             }
         },
         handleLinkClick(el) {
-        this.$router.push('/').then(() => {
-            this.$nextTick(() => {
-                document.getElementById(el).scrollIntoView({ behavior: 'smooth' });
+            this.$router.push('/').then(() => {
+                this.$nextTick(() => {
+                    document.getElementById(el).scrollIntoView({ behavior: 'smooth' });
+                });
             });
-        });
-    }
+        }
     }
 }
 </script>
+
+<style>
+#nvb-collapse ul {
+    background-color: var(--hublife-primary);
+}
+
+#nvb-collapse ul a:hover {
+    background-color: var(--hublife-secondary);
+}
+</style>

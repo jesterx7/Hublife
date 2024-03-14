@@ -1,76 +1,68 @@
 <template>
     <div class="mx-auto max-w-screen-xl pb-8 px-10">
-        <div class="md:grid md:grid-cols-4 gap-2">
-            <div v-for="(valueObj, valueIndex) in valueList" :key="valueIndex">
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 card-view"
-                    @click="toggleClass(['border-green-500', 'border-2', 'card-selected'])">
-                    <img class="rounded-t-lg" :src="valueObj.img" alt="" />
-                    <div class="p-5">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-                valueObj.value
-            }}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                            technology
-                            acquisitions of 2021 so far, in reverse chronological order.</p>
+        <div class="flex justify-center items-center">
+            <div>
+                <div class="w-full flex justify-center">
+                    <fwb-img alt="flowbite-vue" class="w-3/4 md:w-2/4 lg:w-2/4 pt-12" :src="imgTitle" />
+                </div>
+                <div class="flex justify-center mt-8">
+                    <div>
+                        <div class="grid grid-cols-2 gap-4 mt-8 mb-4">
+                            <div class="w-36 h-36 rounded-lg bg-green-300 border-4 border-black">
+
+                            </div>
+                            <div class="w-36 h-36 rounded-lg bg-blue-900 flex justify-center items-center border-4 border-black">
+                                <div class="w-3/4 h-72 md:h-96 bg-contain bg-no-repeat bg-center py-12 inline-block"
+                                    alt="flowbite-vue" :style="{ 'background-image': getElementImg() }"></div>
+                            </div>
+                            <div class="w-36 h-36 rounded-3xl flex justify-center items-center bg-contain bg-no-repeat bg-center border-4 border-black"
+                                :style="{ 'background-image': getCareerPathImg() }">
+                            </div>
+                            <div
+                                class="w-36 h-36 text-gray-700 rounded-full bg-orange-400 flex items-center justify-center border-4 border-black">
+                                <ul class="list-disc">
+                                    <li v-for="(item, index) in values" :key="index">{{ item.value }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="w-full h-24 rounded-lg bg-red-500 flex justify-center items-center mb-8 border-4 border-black"
+                            style="border-bottom-left-radius: 70px; border-bottom-right-radius: 70px;">
+                            {{ actionPlan[0] }}
+                        </div>
                     </div>
                 </div>
+                <div class="flex justify-center items-center my-8">
+                    <fwb-img alt="flowbite-vue" class="w-4/12 md:w-2/12 text-center items-center cursor-pointer"
+                        :src="printBtn" @click="continueJourneyThread()" />
+                </div>
             </div>
-        </div>
-        <div class="flex justify-end">
-            <a id="cancel" type="button" @click="cancelQuestionnaireValues"
-                class="mt-12 mr-2 text-white bg-gradient-to-br from-green-500 to-blue-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium inline-flex items-center rounded-lg text-sm px-5 py-2.5 text-center mb-2"
-                hidden>
-                Cancel
-            </a>
-            <a id="submit" type="button" @click="submitQuestionnaireValues"
-                class="mt-12 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium inline-flex items-center rounded-lg text-sm px-5 py-2.5 text-center mb-2">
-                Submit
-            </a>
         </div>
     </div>
 </template>
 
+<script setup>
+import { FwbImg } from 'flowbite-vue'
+</script>
+
 <script>
+import bgResult from "@/assets/images/resultJar.png"
+import imgTitle from "@/assets/images/resultTitle.png"
+import printBtn from "@/assets/images/buttons/print.png"
+
 export default {
     components: {},
-    props: ['modifyJourneyThread'],
+    props: {
+        element: Object,
+        careerPath: Object,
+        values: Array,
+        actionPlan: Array
+    },
     data() {
         return {
-            valueList: [
-                {
-                    value: "Value 1",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 2",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 3",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 4",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 5",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 6",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 7",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                },
-                {
-                    value: "Value 8",
-                    img: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png"
-                }
-            ],
-            onConfirm: false
+            onConfirm: false,
+            imgTitle,
+            bgResult,
+            printBtn
         }
     },
     methods: {
@@ -91,7 +83,6 @@ export default {
             }
         },
         cancelQuestionnaireValues() {
-
             $("#cancel").fadeOut();
             $("#submit").text("Submit");
             $(".card-view").not(".card-selected").fadeIn();
@@ -99,7 +90,15 @@ export default {
         },
         continueJourneyThread() {
             this.modifyJourneyThread(3);
-        }
+        },
+        getElementImg() {
+            let img_path = '/src/assets/images/elements/' + this.element.img_path;
+            return 'url(' + require(img_path) + ')';
+        },
+        getCareerPathImg() {
+            let img_path = '/src/assets/images/careers/' + this.careerPath.icon_path;
+            return 'url(' + require(img_path) + ')';
+        },
     },
 }
 </script>

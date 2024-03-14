@@ -1,53 +1,58 @@
 <template>
     <div class="px-2 py-2">
+        <div class="text-center text-white my-8">
+            <h2>PHASE 2</h2>
+            <p>Please tick one of the circle that describe you the most!</p>
+        </div>
         <div class="flex justify-center items-center" v-for="(questionObj, questionIndex) in questionList"
             :key="questionIndex">
-            <div
-                class="p-6 my-4 w-4/5 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ questionObj.question
-                    }}</h5>
-                <div class="flex">
+            <div class="rounded-lg p-6 my-4 w-11/12 lg:w-3/5 md:w-4/5 bg-gray-300 border bg-opacity-25">
+                <p class="text-center text-white mb-4 text-xl font-bold tracking-tight dark:text-white">{{
+            questionObj.question
+        }}</p>
+                <div class="grid grid-cols-4 gap-4">
                     <div class="flex items-center me-4" v-for="(answerObj, answerIndex) in questionObj.answers"
                         :key="answerIndex">
-                        <input id="inline-2-radio" type="radio" value="" :name="'question-' + questionIndex"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{
+                        <input type="radio" :value="answerObj.seq" :name="'question-' + questionIndex"
+                            class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="inline-2-radio" class="text-white ms-2 text-sm font-medium dark:text-gray-300">{{
             answerObj.answer }}</label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex justify-center items-center">
-            <a type="button" @click="continueJourneyThread()"
-                class="mt-8 text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium inline-flex items-center rounded-lg text-sm px-5 py-2.5 text-center mb-2">
-                Submit
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9" />
-                </svg>
-            </a>
+        <div class="flex justify-center items-center my-8">
+            <fwb-img alt="flowbite-vue" class="w-4/12 md:w-2/12 text-center items-center cursor-pointer" :src="nextBtn"
+                @click="continueJourneyThread()" />
         </div>
     </div>
 </template>
 
+<script setup>
+import { FwbImg } from 'flowbite-vue'
+</script>
+
 <script>
 import { mapActions } from "vuex";
+import nextBtn from "@/assets/images/buttons/next.png"
 
 export default {
     components: {},
-    props: ['modifyJourneyThread'],
+    props: ['modifyJourneyThread', 'modifySeqAnswer'],
     data() {
         return {
             questionList: [],
             isLoading: false,
+            stored_answer: {},
+            nextBtn,
+            answerCounters: [0, 0, 0, 0],
+            questionChecker: []
         }
     },
     mounted() {
         this.prosesRequestQuestions("get")
             .then(response => {
                 this.questionList = response.data;
-                console.log(this.questionList);
             })
             .catch(error => {
                 console.log(error);
@@ -68,6 +73,12 @@ export default {
             }
         },
         continueJourneyThread() {
+            for (let i=0; i < this.questionList.length; i++) {
+                let radioValue = document.querySelector('input[name="question-' + i + '"]:checked').value;
+                this.answerCounters[radioValue] += 1;
+            }
+            let maxIndexAnswer = this.answerCounters.indexOf(Math.max(...this.answerCounters));
+            this.modifySeqAnswer(maxIndexAnswer);
             this.modifyJourneyThread(2);
         }
     }

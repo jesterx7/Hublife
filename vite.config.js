@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import vitePluginRequire from "vite-plugin-require";
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -7,6 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [
     vue(),
+    vitePluginRequire.default()
   ],
   server: {
     proxy: {
@@ -17,6 +18,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    commonjsOptions: { transformMixedEsModules: true } // Change
   },
   optimizeDeps: {
     exclude: ['js-big-decimal']

@@ -1,29 +1,34 @@
 <template>
     <div>
         <transition name="fade">
-            <Career v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread"/>
+            <Career v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread" :modifyCareerPath="modifyCareerPath"/>
         </transition>
 
         <transition name="fade">
-            <Questionnaire v-if="jounreyThread == 1" :modifyJourneyThread="modifyJourneyThread"/>
+            <Questionnaire v-if="jounreyThread == 1" :modifyJourneyThread="modifyJourneyThread" :modifySeqAnswer="modifySeqAnswer"/>
         </transition>
 
         <transition name="fade">
-            <QuestionnaireResult v-if="jounreyThread == 2" :modifyJourneyThread="modifyJourneyThread"/>
+            <ElementQuestion v-if="jounreyThread == 2" :modifyJourneyThread="modifyJourneyThread" :modifyElement="modifyElement" :seqAnswer="seqAnswer"/>
         </transition>
 
         <transition name="fade">
-            <ActionPlan v-if="jounreyThread == 3" :modifyJourneyThread="modifyJourneyThread"/>
+            <Values v-if="jounreyThread == 3" :modifyJourneyThread="modifyJourneyThread" :modifyValues="modifyValues"/>
         </transition>
 
         <transition name="fade">
-            <Values v-if="jounreyThread == 4" :modifyJourneyThread="modifyJourneyThread"/>
+            <ActionPlan v-if="jounreyThread == 4" :modifyJourneyThread="modifyJourneyThread" :modifyActionPlan="modifyActionPlan"/>
+        </transition>
+
+        <transition name="fade">
+            <QuestionnaireResult v-if="jounreyThread == 5" :element="element" :careerPath="careerPath" :values="values" :actionPlan="actionPlan" />
         </transition>
     </div>
 </template>
 <script>
 
 import Questionnaire from '@/components/Questionnaire.vue';
+import ElementQuestion from '@/components/ElementQuestions.vue';
 import QuestionnaireResult from '@/components/QuestionnaireResult.vue';
 import Career from '@/components/Career.vue';
 import ActionPlan from '@/components/ActionPlan.vue';
@@ -32,6 +37,7 @@ import Values from '@/components/Values.vue';
 export default {
     components: {
         Questionnaire,
+        ElementQuestion,
         QuestionnaireResult,
         Career,
         ActionPlan,
@@ -39,7 +45,12 @@ export default {
     },
     data() {
         return {
-            jounreyThread: 0
+            jounreyThread: 0,
+            seqAnswer: null,
+            element: null,
+            careerPath: null,
+            values: [],
+            actionPlan: [],
         }
     },
     methods: {
@@ -54,6 +65,21 @@ export default {
         },
         modifyJourneyThread(_journeyThread) {
             this.jounreyThread = _journeyThread;
+        },
+        modifyElement(_element) {
+            this.element = _element;
+        },
+        modifyCareerPath(_careerPath) {
+            this.careerPath = _careerPath;
+        },
+        modifyValues(_values) {
+            this.values = _values;
+        },
+        modifyActionPlan(_actionPlan) {
+            this.actionPlan = _actionPlan;
+        },
+        modifySeqAnswer(_seqAnswer) {
+            this.seqAnswer = _seqAnswer;
         }
     }
 }
