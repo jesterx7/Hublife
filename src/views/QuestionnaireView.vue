@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div id="hublife-container" :style="{ 'background-image': getBackgroundByComponent() }" class="max-w-screen bg-cover">
         <transition name="fade">
-            <Career v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread" :modifyCareerPath="modifyCareerPath"/>
+            <Career v-if="jounreyThread == 0" :modifyJourneyThread="modifyJourneyThread" :modifyCareerPath="modifyCareerPath" :modifyBgPath="modifyBgPath"/>
         </transition>
 
         <transition name="fade">
@@ -51,6 +51,7 @@ export default {
             careerPath: null,
             values: [],
             actionPlan: [],
+            bgPath: 'career.png'
         }
     },
     methods: {
@@ -80,6 +81,13 @@ export default {
         },
         modifySeqAnswer(_seqAnswer) {
             this.seqAnswer = _seqAnswer;
+        },
+        modifyBgPath(_path) {
+            this.bgPath = _path;
+        },
+        getBackgroundByComponent() {
+            let img_path = '/src/assets/images/background/careerBg.png';
+            return 'url(' + require(img_path) + ')';
         }
     }
 }

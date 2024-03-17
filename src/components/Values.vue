@@ -1,14 +1,11 @@
 <template>
     <div class="mx-auto max-w-screen-xl pb-8 px-10">
         <div class="flex justify-center">
-            <fwb-img class="w-2/4 lg:w-1/4 md:w-1/4 py-2" alt="flowbite-vue" :src="valueTitle" />
+            <fwb-img class="w-11/12 md:w-3/4 py-2" alt="flowbite-vue" :src="valueTitle" />
         </div>
-        <div class="text-white my-12 text-2xl">
-            Pick Three For....
-        </div>
-        <div class="grid grid-cols-3 gap-4 md:gap-8 content-center">
+        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-8 content-center mt-8 md:mt-32 place-items-center">
             <div v-for="(item, index) in valueList" :key="index"
-                class="text-white flex items-center bg-center justify-center text-center w-24 h-24 md:w-40 md:h-40 rounded-lg p-4 bg-contain bg-no-repeat"
+                :class="{ 'text-white rounded-lg p-4 bg-contain bg-no-repeat': true, [customClassRectangle]: item.shape_code == 'rectangle', [customClassNormal]: item.shape_code != 'rectangle' }"
                 :style="{ 'background-image': getBackgroundImage(item.img_path) }" @click="toggleClass(item)">
             </div>
         </div>
@@ -24,7 +21,7 @@ import { FwbImg } from 'flowbite-vue'
 
 <script>
 import { mapActions } from "vuex";
-import valueTitle from "@/assets/images/valueTitle.png"
+import valueTitle from "@/assets/images/titles/value.png"
 import submitBtn from "@/assets/images/buttons/submit.png"
 
 export default {
@@ -39,7 +36,9 @@ export default {
             classNames: ['bg-gray-300', 'bg-opacity-25'],
             selectedValue: [],
             valueTitle,
-            submitBtn
+            submitBtn,
+            customClassRectangle: 'w-32 h-32 md:w-64 md:h-64 bg-center',
+            customClassNormal: 'w-20 h-20 md:w-40 md:h-40'
         }
     },
     mounted() {

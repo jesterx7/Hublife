@@ -1,5 +1,5 @@
 <template>
-    <fwb-navbar class="bg-hublife-primary" solid>
+    <fwb-navbar class="bg-hublife-primary bg-opacity-25" solid>
         <template #logo>
             <fwb-navbar-logo class="text-white" alt="Flowbite logo" image-url="src/assets/images/icon.png" link="#">
             </fwb-navbar-logo>

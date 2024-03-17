@@ -8,6 +8,21 @@
     src: url('@/assets/fonts/Brandon_Grostesque.otf') format('opentype');
 }
 
+@font-face {
+    font-family: 'BrandonBlk';
+    src: url('@/assets/fonts/Brandon_Blk.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'BrandonBlkReg';
+    src: url('@/assets/fonts/Brandon_Blk_Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Lozange';
+    src: url('@/assets/fonts/Lozange.otf') format('opentype');
+}
+
 body {
     font-family: 'BrandonGrostesque';
 }
