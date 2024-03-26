@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="flex justify-center items-center my-8">
-            <button type="submit">
+            <button type="submit" class="flex justify-center items-center">
                 <fwb-img alt="flowbite-vue" class="w-4/12 md:w-36 text-center items-center cursor-pointer"
                     :src="nextBtn" />
             </button>
@@ -93,7 +93,7 @@ export default {
                 }
             }
             this.modifySeqAnswer(maxIndexAnswer);
-            this.modifyJourneyThread(2);
+            this.modifyJourneyThread();
         }
     }
 }

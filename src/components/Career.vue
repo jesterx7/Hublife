@@ -4,7 +4,7 @@
             <fwb-img class="w-3/4 md:w-3/6 py-2" alt="flowbite-vue" :src="careerTitle" />
         </div>
         <div class="flex justify-center mt-24">
-            <div class="grid grid-cols-3 md:grid-cols-5 mt-12 w-4/4" style="gap: 31px;">
+            <div class="grid grid-cols-3 md:grid-cols-5 mt-12 w-4/4 place-items-center" style="gap: 31px;">
                 <div v-for="(item, index) in careerList" :key="index"
                     class="text-white flex items-center justify-center text-center w-24 h-24 md:w-40 md:h-40 rounded-lg p-4 bg-contain bg-no-repeat"
                     :style="{ 'background-image': getBackgroundImage(item.icon_path) }" @click="openCareerModal(item)">
@@ -13,28 +13,24 @@
         </div>
 
         <div v-if="selectedCareer && !selectedCareerDetail"
-            class="flex pb-20 overflow-y-auto overflow-x-hidden fixed my-14 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-700/50">
+            class="flex fixed justify-center items-center w-full inset-0 ml-4">
             <div :style="{ backgroundImage: 'url(' + bgModalImage + ')' }"
-                class="h-3/4 w-3/4 flex justify-center items-center p-4 bg-no-repeat bg-center bg-contain">
-                <div class="max-w-2xl">
+                class="h-3/4 w-3/4 flex justify-center items-center p-4 bg-no-repeat bg-center bg-contain pr-7">
+                <div class="max-w-2xl pt-10">
                     <div class="relative rounded-lg shadow dark:bg-gray-700">
-                        <button type="button" @click="closeCareerModal()"
-                            class="close-btn text-white bg-transparent text-sm w-8 h-8 ms-auto absolute" style="top: -25px; right: -100px;">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
                         <div class="flex justify-center items-center text-center">
                             <div class="font-medium">
-                                <ul class="career-detail max-w-md space-y-1 md:space-y-2 text-white list-none list-inside">
+                                <ul
+                                    class="career-detail max-w-md space-y-3 md:space-y-5 text-white list-none list-inside mb-4">
                                     <li v-for="(item, index) in selectedCareer.careers" :key="index"
-                                        @click="addCareer(item)" class="cursor-pointer text-xs md:text-xl">
+                                        @click="addCareer(item)"
+                                        class="w-11/12 list-career cursor-pointer text-xs md:text-md">
                                         {{ item.career.toUpperCase() }}
                                     </li>
                                 </ul>
+                                <div class="flex justify-center">
+                                    <fwb-img @click="closeCareerModal()" class="w-1/4 md:w-2/8 py-2 mr-4 md:mr-8" alt="flowbite-vue" :src="backBtn" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,21 +39,12 @@
         </div>
 
         <div v-if="selectedCareerDetail"
-            class="flex pb-20 overflow-y-auto overflow-x-hidden fixed my-14 justify-center items-center w-full inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-700/50">
+            class="flex pb-20 overflow-y-auto overflow-x-hidden fixed my-14 justify-center items-center w-full inset-0 max-h-full">
             <div :style="{ backgroundImage: 'url(' + bgModalCareer + ')' }"
-                class="h-2/4 flex justify-center items-center max-12 p-4 w-full m-auto relative bg-no-repeat bg-center bg-contain">
+                class="h-2/4 flex justify-center items-center max-12 p-4 w-full m-auto relative bg-no-repeat bg-center bg-contain ml-8">
                 <div class="m-auto max-w-2xl pr-12 pt-8 flex justify-center item-center">
                     <div class="relative rounded-lg shadow dark:bg-gray-700 text-center">
-                        <button type="button" @click="closeCareerModal()"
-                            class="text-white bg-transparent text-sm w-8 h-8 ms-auto absolute top-2 md:top-8 right-0">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        <div class="px-4 pt-4 md:pt-12 pb-8">
+                        <div class="px-4 pt-1 md:pt-12 pb-4 md:pb-8">
                             <p class="text-xs md:text-2xl font-semibold text-white dark:text-white"
                                 style="font-family: 'BrandonBlk';">
                                 {{ selectedCareerDetail.career.toUpperCase() }}
@@ -67,9 +54,9 @@
                             <p class="text-xs md:text-md md:w-3/4 lg:text-xl" style="font-family: 'BrandonBlkReg';">{{
                 selectedCareerDetail.description }}</p>
                         </div>
-                        <div class="flex justify-center mt-4 md:mt-8">
-                            <fwb-img alt="flowbite-vue" class="w-3/12 md:w-2/12 text-center items-center cursor-pointer"
-                                :src="submitBtn" @click="continueJourneyThread()" />
+                        <div class="md:mt-8 flex justify-center">
+                            <fwb-img @click="closeCareerModal()" class="w-1/4 md:w-1/6 py-2 mr-4 md:mr-8" alt="flowbite-vue" :src="backBtn" />
+                            <fwb-img @click="continueJourneyThread()" class="w-1/4 md:w-1/6 py-2 mr-4 md:mr-8" alt="flowbite-vue" :src="submitBtn" />
                         </div>
                     </div>
                 </div>
@@ -88,10 +75,12 @@ import bgModalImage from "@/assets/images/bgModal.png"
 import bgModalCareer from "@/assets/images/bgModal2.png"
 import careerTitle from "@/assets/images/titles/career.png"
 import submitBtn from "@/assets/images/buttons/submit.png"
+import nextBtn from "@/assets/images/buttons/next.png"
+import backBtn from "@/assets/images/buttons/back.png"
 
 export default {
     components: {},
-    props: ['modifyJourneyThread', 'modifyCareerPath', 'modifyBgPath'],
+    props: ['modifyJourneyThread', 'modifyCareerPath', 'modifyCareerDetail', 'modifyBgPath'],
     mounted() {
         this.prosesRequestCareers("get")
             .then(response => {
@@ -125,8 +114,9 @@ export default {
             this.selectedCareerDetail = null;
         },
         continueJourneyThread() {
+            this.modifyCareerDetail(this.selectedCareerDetail);
             this.modifyCareerPath(this.selectedCareer);
-            this.modifyJourneyThread(1);
+            this.modifyJourneyThread();
         },
         addCareer(item) {
             this.selectedCareerDetail = item;
@@ -149,9 +139,13 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
-  .close-btn {
-    top: 0px !important;
-    right: -50px !important;
-  }
+    .close-btn {
+        top: 0px !important;
+        right: -50px !important;
+    }
+
+    .list-career {
+        font-size: 10px !important;
+    }
 }
 </style>

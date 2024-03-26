@@ -10,7 +10,8 @@
                 </p>
                 <div class="w-3/4 h-72 md:h-96 bg-contain bg-no-repeat bg-center py-12 inline-block" alt="flowbite-vue"
                     :style="{ 'background-image': getBackgroundImage() }"></div>
-                <h2 class="text-8xl text-white my-8" style="font-family: 'Lozange';">{{ selectedElement.element }}</h2>
+                <h2 class="text-6xl md:text-8xl text-white my-8" style="font-family: 'Lozange';">{{
+            selectedElement.element }}</h2>
                 <div class="w-auto flex justify-center items-center my-4">
                     <p class="text-white text-xl w-3/5 md:w-2/5" style="font-family: 'BrandonBlkReg';">
                         {{ selectedElement.description }}
@@ -43,7 +44,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-center mt-8">
-                    <button type="submit">
+                    <button type="submit" class="flex justify-center items-center">
                         <fwb-img alt="flowbite-vue" class="w-4/12 md:w-36 text-center items-center cursor-pointer"
                             :src="nextBtn" />
                     </button>
@@ -101,9 +102,14 @@ export default {
             }
         },
         continueJourneyThread() {
-            this.modifyJourneyThread(3);
+            this.modifyJourneyThread();
         },
         submitElement() {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
             this.isSubmit = true
             this.modifyElement(this.selectedElement);
         },

@@ -7,6 +7,7 @@ const URL_CAREERS = URL_PREFIX + import.meta.env.VITE_CAREERS_URL;
 const URL_ELEMENT_QUESTIONS = URL_PREFIX + import.meta.env.VITE_ELEMENT_QUESTIONS_URL;
 const URL_VALUES = URL_PREFIX + import.meta.env.VITE_VALUES_URL;
 const URL_ACTIONS = URL_PREFIX + import.meta.env.VITE_ACTIONS_URL;
+const URL_FORM_HEADER = URL_PREFIX + import.meta.env.VITE_FORM_HEADER_URL;
 
 export default {
 	prosesRequestQuestions(method, data) {
@@ -33,5 +34,8 @@ export default {
 	},
     prosesRequestActions(data) {
 		return axios.get(`${URL_ACTIONS}`, data);
+	},
+    prosesRequestFormHeader(data) {
+		return axios.post(`${URL_FORM_HEADER}`, data);
 	},
 }

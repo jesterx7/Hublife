@@ -45,6 +45,7 @@ export default {
         this.prosesRequestValues()
             .then(response => {
                 this.valueList = response.data;
+                this.valueList = window.innerWidth < 768 ? this.valueList.sort((a, b) => a.m_seq - b.m_seq) : this.valueList;  
             })
             .catch(error => {
                 console.log(error);
@@ -70,7 +71,7 @@ export default {
         },
         continueJourneyThread() {
             this.modifyValues(this.selectedValue);
-            this.modifyJourneyThread(4);
+            this.modifyJourneyThread();
         },
         getBackgroundImage(path) {
             let img_path = '/src/assets/images/values/' + path;

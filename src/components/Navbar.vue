@@ -1,26 +1,8 @@
 <template>
-    <fwb-navbar class="bg-hublife-primary bg-opacity-25" solid>
+    <fwb-navbar id="hublife-navbar" class="bg-hublife-primary bg-opacity-25" solid>
         <template #logo>
             <fwb-navbar-logo class="text-white" alt="Flowbite logo" image-url="src/assets/images/icon.png" link="#">
             </fwb-navbar-logo>
-        </template>
-        <template #default="{ isShowMenu }">
-            <fwb-navbar-collapse id="nvb-collapse" :is-show-menu="isShowMenu">
-                <router-link to="/">
-                    <fwb-navbar-link link="#" @click="handleLinkClick('#landing')">
-                        <div class="text-white">
-                            Home
-                        </div>
-                    </fwb-navbar-link>
-                </router-link>
-                <router-link to="/">
-                    <fwb-navbar-link link="#" @click="handleLinkClick('#form')">
-                        <div class="text-white">
-                            Forms
-                        </div>
-                    </fwb-navbar-link>
-                </router-link>
-            </fwb-navbar-collapse>
         </template>
     </fwb-navbar>
 </template>
@@ -67,5 +49,9 @@ export default {
 
 #nvb-collapse ul a:hover {
     background-color: var(--hublife-secondary);
+}
+
+#hublife-navbar button {
+    display: none;
 }
 </style>

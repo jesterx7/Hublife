@@ -2,8 +2,18 @@ import { createStore } from 'vuex'
 import gateway from '@/api/gateway'
 
 export default createStore({
-    state: {},
-    mutations: {},
+    state: {
+        backgroundValue: null,
+        profile: null,
+    },
+    mutations: {
+        updateBackground(state, _backgroundValue) {
+            state.backgroundValue = _backgroundValue;
+        },
+        updateProfile(state, _profile) {
+            state.profile = _profile;
+        }
+    },
     actions: {
         prosesRequestQuestions(context, method, data) {
             return new Promise((resolve, reject) => {
@@ -52,6 +62,17 @@ export default createStore({
         prosesRequestActions(context, data) {
             return new Promise((resolve, reject) => {
                 gateway.prosesRequestActions(data)
+                    .then(res => {
+                        const data = res
+                        resolve(data)
+                    }).catch(err => {
+                        reject(err)
+                    })
+            })
+        },
+        prosesRequestFormHeader(context, data) {
+            return new Promise((resolve, reject) => {
+                gateway.prosesRequestFormHeader(data)
                     .then(res => {
                         const data = res
                         resolve(data)

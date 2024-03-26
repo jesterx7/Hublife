@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen bg-cover" :style="{ 'background-image': getBackgroundByComponent() }">
+  <div id="hublife-container" class="flex flex-col min-h-screen bg-cover bg-center max-w-screen overflow-x-hidden" :style="{ 'background-image': getBackgroundByComponent() }">
     <Navbar />
     <RouterView />
     <Footer />
@@ -13,7 +13,12 @@ import Footer from './components/Footer.vue'
 </script>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState(['backgroundValue'])
+  },
   data() {
     return {
       bgPath: 'career.png'
@@ -24,7 +29,7 @@ export default {
       this.bgPath = _bgPath;
     },
     getBackgroundByComponent() {
-      let img_path = '/src/assets/images/background/careerBg.png';
+      let img_path = '/src/assets/images/background/' + this.backgroundValue;
       return 'url(' + require(img_path) + ')';
     }
   }
